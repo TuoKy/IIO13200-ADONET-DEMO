@@ -21,6 +21,9 @@ namespace JAMK.ICT.ADOBlanco
   /// </summary>
   public partial class MainWindow : Window
   {
+        
+
+
     public MainWindow()
     {
       InitializeComponent();
@@ -32,21 +35,26 @@ namespace JAMK.ICT.ADOBlanco
       //TODO täytetään combobox asiakkaitten maitten nimillä
       //esimerkki kuinka App.Configissa oleva connectionstring luetaan
       lbMessages.Content = JAMK.ICT.Properties.Settings.Default.Tietokanta;
+
+      cbCountries.ItemsSource = Data.DBPlacebo.getCities(Properties.Settings.Default.Tietokanta, Properties.Settings.Default.Taulu).DefaultView;
+            
     }
 
     private void btnGet3_Click(object sender, RoutedEventArgs e)
     {
-      //TODO
+          dgCustomers.ItemsSource = Data.DBPlacebo.GetTestCustomers().DefaultView;
     }
 
     private void btnGetAll_Click(object sender, RoutedEventArgs e)
     {
-      //TODO
+            string paska = "";
+            dgCustomers.ItemsSource = Data.DBPlacebo.GetAllCustomersFromSQLServer(Properties.Settings.Default.Tietokanta, Properties.Settings.Default.Taulu, out paska).DefaultView;
+            lbMessages.Content = paska;
     }
 
     private void btnGetFrom_Click(object sender, RoutedEventArgs e)
     {
-      //TODO
+            dgCustomers.ItemsSource = Data.DBPlacebo.getFrom(Properties.Settings.Default.Tietokanta, Properties.Settings.Default.Taulu, cbCountries.Text).DefaultView;
     }
 
         private void btnYield_Click(object sender, RoutedEventArgs e)
